@@ -1,6 +1,6 @@
 name: interactive_bezier
 description: Draw a wavy bezier background on-device and generate reusable widget code for your project
-version: 0.0.1
+version: 0.0.2
 homepage:
 
 environment:

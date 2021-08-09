@@ -48,10 +48,7 @@ class BezierDrawer extends StatefulWidget {
     this.firstControlRelativeOffset = const Offset(.5, -1.5),
     this.secondControlRelativeOffset = const Offset(.5, -.5),
     this.lastControlRelativeOffset = const Offset(.5, 1.5),
-  }) : super(key: key) {
-    assert(firstStopRelativeOffset.dx + secondStopRelativeOffset.dx < 1,
-        'The control points should be placed within the widget\'s width.');
-  }
+  }) : super(key: key);
 
   @override
   _BezierDrawerState createState() => _BezierDrawerState();
