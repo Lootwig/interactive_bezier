@@ -43,10 +43,10 @@ class BezierDrawer extends StatefulWidget {
     this.color,
     this.startFraction = .6,
     this.endFraction = .3,
-    this.firstStopRelativeOffset = const Offset(.3, .05),
-    this.secondStopRelativeOffset = const Offset(.4, .1),
-    this.firstControlRelativeOffset = const Offset(.5, -1.5),
-    this.secondControlRelativeOffset = const Offset(.5, -.5),
+    this.firstStopRelativeOffset = const Offset(.3, .6),
+    this.secondStopRelativeOffset = const Offset(.7, .4),
+    this.firstControlRelativeOffset = const Offset(.5, .8),
+    this.secondControlRelativeOffset = const Offset(.5, 1.1),
     this.lastControlRelativeOffset = const Offset(.5, 1.5),
   }) : super(key: key);
 
@@ -69,11 +69,9 @@ class _BezierDrawerState extends State<BezierDrawer> {
     super.initState();
     _startOffset = Offset(0, widget.height * widget.startFraction);
     _firstStopOffset =
-        widget.firstStopRelativeOffset.scale(widget.width, -widget.height) +
-            _startOffset;
+        widget.firstStopRelativeOffset.scale(widget.width, widget.height);
     _secondStopOffset =
-        widget.secondStopRelativeOffset.scale(widget.width, widget.height) +
-            _firstStopOffset;
+        widget.secondStopRelativeOffset.scale(widget.width, widget.height);
     _lastStopOffset = Offset(widget.width, widget.height * widget.endFraction);
     _firstControlOffset = _startOffset +
         widget.firstControlRelativeOffset
@@ -109,20 +107,23 @@ class _BezierDrawerState extends State<BezierDrawer> {
 Use the following widget in your app as a layer of a Stack:    
     
 LayoutBuilder(builder: (_, constraints) {
-    return BezierDrawer(
-      width: constraints.maxWidth,
-      height: constraints.maxHeight,${widget.color != null ? '''
-      color: ${widget.color},''' : ''}
-      startFraction: $startFraction,
-      endFraction: $endFraction,
-      firstStopRelativeOffset: $firstStop,
-      secondStopRelativeOffset: $secondStop,
-      firstControlRelativeOffset: $firstControl,
-      secondControlRelativeOffset: $secondControl,
-      lastControlRelativeOffset: $lastControl,
-    );
+  return BezierDrawer(
+    width: constraints.maxWidth,
+    height: constraints.maxHeight,${widget.color != null ? '''\n    color: ${widget.color},''' : ''}
+    startFraction: $startFraction,
+    endFraction: $endFraction,
+    firstStopRelativeOffset: ${_formatOffset(firstStop)},
+    secondStopRelativeOffset: ${_formatOffset(secondStop)},
+    firstControlRelativeOffset: ${_formatOffset(firstControl)},
+    secondControlRelativeOffset: ${_formatOffset(secondControl)},
+    lastControlRelativeOffset: ${_formatOffset(lastControl)},
+  );
   })
 ''');
+  }
+
+  String _formatOffset(Offset offset) {
+    return 'Offset(${offset.dx.toStringAsFixed(4)}, ${offset.dy.toStringAsFixed(4)})';
   }
 
   @override
