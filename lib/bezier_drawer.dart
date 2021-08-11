@@ -35,7 +35,7 @@ class BezierDrawer extends StatefulWidget {
 
   final Color? color;
 
-  BezierDrawer({
+  const BezierDrawer({
     Key? key,
     required this.width,
     required this.height,
